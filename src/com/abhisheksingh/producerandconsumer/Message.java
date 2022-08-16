@@ -1,7 +1,5 @@
 package com.abhisheksingh.producerandconsumer;
 
-import java.util.Random;
-
 public class Message {
     private String message;
     private boolean empty = true;
@@ -16,7 +14,7 @@ public class Message {
            try {
                wait();
            }catch (InterruptedException e) {
-
+             e.printStackTrace();
            }
         }
         empty = true;
@@ -29,7 +27,7 @@ public class Message {
             try{
                 wait();
             }catch (InterruptedException e) {
-
+                e.printStackTrace();
             }
         }
         empty = false;
@@ -38,52 +36,7 @@ public class Message {
     }
 }
 
-class Writer implements Runnable {
-    private Message message;
 
-    public Writer(Message message) {
-        this.message = message;
-    }
 
-    @Override
-    public void run() {
-        String sentText[] = {"Hey you Coming",
-                "When will you be there",
-                "Did you prepare for the speech",
-                "5 minutes to go"
-        };
-        Random random = new Random();
-        for (int i = 0; i < sentText.length; i++) {
-            message.write(sentText[i]);
-            try {
-                Thread.sleep(random.nextInt(2000));
-            } catch (InterruptedException e) {
 
-            }
-        }
-        message.write("Finished");
-    }
-}
-
-class Reader implements Runnable {
-    private Message message;
-
-    public Reader(Message message) {
-        this.message = message;
-    }
-
-    @Override
-    public void run() {
-        Random random = new Random();
-        for (String latestMessage = message.read(); !latestMessage.equals("Finished");
-             latestMessage = message.read()) {
-            System.out.println(latestMessage);
-        }
-        try {
-            Thread.sleep(random.nextInt(2000));
-        } catch (InterruptedException e) {
-
-        }
-    }
-}
 

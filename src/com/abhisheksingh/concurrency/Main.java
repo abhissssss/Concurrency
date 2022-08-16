@@ -1,5 +1,4 @@
-import com.abhisheksingh.concurrency.AnotherThread;
-import com.abhisheksingh.concurrency.MyRunnable;
+package com.abhisheksingh.concurrency;
 
 import static com.abhisheksingh.concurrency.ThreadColor.*;
 
@@ -9,12 +8,7 @@ public class Main {
         Thread anotherThread = new AnotherThread();
         anotherThread.setName("++ Another thread ++");
         anotherThread.start();
-        new Thread () {
-            @Override
-            public void run() {
-                System.out.println(ANSI_GREEN + "Hello fom the anonymous class thread");
-            }
-        }.start();
+        new Thread(() -> System.out.println(ANSI_GREEN + "Hello fom the anonymous class thread")).start();
         Thread myRunnableThread = new Thread(new MyRunnable() {
             @Override
             public void run() {
